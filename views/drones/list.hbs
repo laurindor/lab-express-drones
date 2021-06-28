@@ -2,16 +2,16 @@
 <a href="/drones/create">
   <button>Create a new drone</button>
 </a>
-{{#each results}}
+{{#each allDrones}}
 
     <p>Name: {{name}}</p>
-    <p> nº Propellers: {{propellers}} </p>
-    <p> Speed : {{maxSpeed}} </p>
-    <a href="/drones/{{_id}}/edit">
-        <button>Edit</button>
+    <p>nº Propellers: {{propellers}}</p>
+    <p>Speed: {{maxSpeed}}</p>
+    <a href = "/drones/{{id}}/edit"> <button>Update</button></a>
+    
     </a>
     <form action='/drones/{{_id}}/delete' method="POST">
-        <button type='submit'>Delete</button>
+    <button type='submit'>Delete</button>
     </form>
   
 

@@ -15,26 +15,42 @@ router.get('/create', (req, res, next) => {
   res.render("drones/create-form")
 });
 
-// Iteration #3: Add a new drone
+// Iteration #3: Add a new drone SOMETHING IS WRONG IT DOESN'T UPDATE THE DATABASE
 router.post('/drones/create', (req, res, next) => {
   const {name, propellers, maxSpeed} = req.body
   .then (() => res.redirect("/drones"))
   .catch(err=> console.log(err))
 });
 
-router.get('/drones/:id/edit', (req, res, next) => {
+
   // Iteration #4: Update the drone
-  // ... your code here
+  router.get('/:id/edit', (req, res, next) => {
+    let id = req.params.id
+    
+    Drone.findById(id)
+      .then(droneFound => res.render("./drones/update-form" , droneFound))
+      .catch(err=> console.log(err))
+  });
+
+
+  // Iteration #4: Update the drone
+  router.post('/:id/edit', (req, res, next) => {
+  const id = req.params.id
+  const {name, propellers, maxSpeed} = req.body
+
+  Drone.findByIdAndUpdate(id, {name, propellers, maxSpeed})
+  .then(() => res.redirect("/drones"))
+  .catch(err=> console.log(err))
 });
 
-router.post('/drones/:id/edit', (req, res, next) => {
-  // Iteration #4: Update the drone
-  // ... your code here
-});
+ // Iteration #5: Delete the drone
+  router.post('/drones/:id/delete', (req, res, next) => {
+  const id = req.params.id
+  const {name, propellers, maxSpeed} = req.body
 
-router.post('/drones/:id/delete', (req, res, next) => {
-  // Iteration #5: Delete the drone
-  // ... your code here
+  Drone.findByIdAndDelete(id, {name, propellers, maxSpeed})
+  .then(() => res.redirect("/drones"))
+  .catch(err=> console.log(err))
 });
 
 module.exports = router;
