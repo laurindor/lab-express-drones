@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Drone = require('../models/Drone.model');
 
 //connecting database
-
+//esto ya estaba en index y no cal
 //const DB_NAME = 'lab-express-drones'
 //mongoose.connect(`mongodb://localhost/${dbName}`)
 
@@ -19,7 +19,12 @@ const drones = [
 
 
  Drone.insertMany( drones)
- .then((result) => console.log(`drone added: ${result.name}`))
+    .then((result) => {
+    console.log(`drone added`);
+     mongoose.connection.close();
+})
  .catch((err) => console.log(err));
+
+
 
    
